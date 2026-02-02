@@ -11,8 +11,6 @@ services:
 
   serv_cont:
     image: rails-img
-    ports:
-      - "8080:3000"
     depends_on:
       - db_cont
     environment:
@@ -20,6 +18,16 @@ services:
       DB_USER:
       DB_PASSWORD:
       DB_NAME:
+
+  nginx_cont:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - serv_cont
+
 
 volumes:
   db_data:
