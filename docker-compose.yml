@@ -8,6 +8,8 @@ services:
       MYSQL_DATABASE: raildb
     volumes:
       - db_data:/var/lib/mysql
+    networks:
+       - rails-network
 
   serv_cont:
     image: rails-img
@@ -20,6 +22,8 @@ services:
       DB_NAME: raildb
     volumes:
         - rails_storage:/app/storage
+    networks:
+        - rails-network
 
   nginx_cont:
     image: nginx:alpine
@@ -29,8 +33,75 @@ services:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
     depends_on:
       - serv_cont
+    networks:
+      - rails-network
 
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    volumes:
+      - ./monitoring/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+    ports:
+      - "9090:9090"        
+    depends_on:
+      
+      - cadvisor
+      - nginx-exporter
+    networks:
+      - rails-network
 
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    ports:
+      - "3001:3000"        
+    networks:
+      - rails-network
+
+ 
+  cadvisor:
+    image: gcr.io/cadvisor/cadvisor:latest
+    container_name: cadvisor
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:ro
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+    ports:
+      - "8080:8080"
+    networks:
+      - rails-network
+
+  nginx-exporter:
+    image: nginx/nginx-prometheus-exporter:latest
+    container_name: nginx-exporter
+    command:
+      - -nginx.scrape-uri=http://nginx_cont:8080/stub_status
+    depends_on:
+      - nginx_cont
+    networks:
+      - rails-network
+ 
+  loki:
+    image: grafana/loki:2.9.0
+    ports:
+    - "3100:3100"
+    command: -config.file=/etc/loki/local-config.yaml
+    networks:
+    - rails-network
+
+  promtail:
+    image: grafana/promtail:2.9.0
+    volumes:
+    - ./promtail-config.yml:/etc/promtail/config.yml:ro
+    - /var/lib/docker/containers:/var/lib/docker/containers:ro
+    command: -config.file=/etc/promtail/config.yml
+    networks:
+    - rails-network
 volumes:
   db_data:
   rails_storage:
+
+networks:
+  rails-network:
+    external: true
