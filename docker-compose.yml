@@ -18,6 +18,8 @@ services:
       DB_USER: root
       DB_PASSWORD: pswd
       DB_NAME: raildb
+    volumes:
+        - rails_storage:/app/storage
 
   nginx_cont:
     image: nginx:alpine
@@ -31,4 +33,4 @@ services:
 
 volumes:
   db_data:
-
+  rails_storage:
