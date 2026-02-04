@@ -23,8 +23,12 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       
-      - name: Build Docker image
-        run: docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/rails-img:latest .
+      - name: Build and push Docker image
+         uses: docker/build-push-action@v5
+      with:
+        context: .
+        push: true
+        tags: ${{ secrets.DOCKERHUB_USERNAME }}/rails-img:latest
 
       
       - name: Push Docker image
