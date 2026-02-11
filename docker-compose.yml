@@ -1,5 +1,4 @@
 version: "3.8"
-
 services:
   db_cont:
     image: mysql:8.0
@@ -98,6 +97,20 @@ services:
     command: -config.file=/etc/promtail/config.yml
     networks:
     - rails-network
+ 
+  backup-daemon:
+     build: ./backup-daemon
+     container_name: backup-daemon
+     volumes:
+      - db_data:/data/db:ro
+      - rails_storage:/data/storage:ro
+      - ./nginx:/configs:ro
+      - ./backups:/backups
+     restart: always
+     networks:
+      - rails-network
+
+
 volumes:
   db_data:
   rails_storage:
