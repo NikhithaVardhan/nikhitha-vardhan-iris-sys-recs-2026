@@ -146,13 +146,13 @@ This error highlighted the need to separate the database into its own container 
 
 
 
-##Task 2-Run Rails & Database in Separate Containers
+## Task 2-Run Rails & Database in Separate Containers
 
-###Objective
+### Objective
 The objective of Task 2 was to separate the Rails application and MySQL database into independent Docker containers and establish proper inter-container communication. This ensures isolation of services, improved scalability, and adherence to containerized architecture best practices.
 
 
-###Initial Docker Compose Setup
+### Initial Docker Compose Setup
 
 A docker-compose.yml file was introduced to orchestrate multiple services. Two containers were defined:
 
@@ -175,7 +175,7 @@ This setup ensured both containers were started together but did not yet guarant
 
 
 
-###Runtime Error – Database Connection Failure
+### Runtime Error – Database Connection Failure
 
 After launching the containers, the Rails application failed with:
 
@@ -189,7 +189,7 @@ This revealed that containerized applications must use service names as hostname
 
 
 
-###Updating database.yml to Use Environment Variables
+### Updating database.yml to Use Environment Variables
 
 To resolve this, the database.yml file was modified to dynamically fetch connection details from environment variables.
 
@@ -210,7 +210,7 @@ This approach follows twelve-factor app principles and ensures environment-level
 ![Database.ymlcheck](Submit_Screenshots/task2/(4).png)
 
 
-###Running Migrations Inside Container
+### Running Migrations Inside Container
 
 To resolve this, migrations were executed inside the Rails container using:
 
@@ -229,7 +229,7 @@ This completed the successful separation of application and database into indepe
 ![MigrationsCheck](Submit_Screenshots/task2/(6).png)
 
 
-###Successful Application Startup
+### Successful Application Startup
 
 After correcting the environment configuration and restarting the containers, the Rails application successfully connected to the MySQL container.
 
