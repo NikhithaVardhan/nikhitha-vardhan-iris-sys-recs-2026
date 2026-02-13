@@ -1,4 +1,4 @@
-![TestTask2](Submit_Screenshots/task2/(1).png)
+![TestTask2](Submit_Screenshots/task2/%281%29.png)
 # IRIS Systems Recruitment 2026 – Systems Task Submission
 
 ## Assignment Overview
