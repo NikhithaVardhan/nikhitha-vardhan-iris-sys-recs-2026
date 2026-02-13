@@ -1,4 +1,4 @@
-![TestTask2](Submit_Screenshots/task2/%281%29.png)
+
 # IRIS Systems Recruitment 2026 – Systems Task Submission
 
 ## Assignment Overview
@@ -170,7 +170,7 @@ The Rails container exposed port `8080:3000` and was configured to depend on the
 
 This setup ensured both containers were started together, but it did not yet guarantee successful database connectivity.
 
-![DBSetup1](Submit_Screenshots/task2/(1).png)
+![DBSetup1](Submit_Screenshots/task2/ (1).png)
 
 
 ### Runtime Error – Database Connection Failure
@@ -184,7 +184,7 @@ This error occurred because Rails was still attempting to connect via a local UN
 
 This highlighted an important concept in containerized environments: services must communicate using Docker service names as hostnames rather than relying on local socket-based connections.
 
-![DBRuntimeError](Submit_Screenshots/task2/(2).png)
+![DBRuntimeError](Submit_Screenshots/task2/ (2).png)
 
 
 ### Updating database.yml to Use Environment Variables
@@ -202,7 +202,7 @@ This allowed the Rails container to connect to the MySQL container using the Doc
 
 This approach follows Twelve-Factor App principles and ensures that configuration is environment-driven rather than hardcoded inside the application.
 
-![Database.ymlcheck](Submit_Screenshots/task2/(4).png)
+![Database.ymlcheck](Submit_Screenshots/task2/ (4).png)
 
 
 ### Running Migrations Inside the Container
@@ -221,7 +221,7 @@ After running migrations:
 
 This ensured the application database was fully initialized within the containerized environment.
 
-![MigrationsCheck](Submit_Screenshots/task2/(6).png)
+![MigrationsCheck](Submit_Screenshots/task2/ (6).png)
 
 
 ### Successful Application Startup
@@ -238,5 +238,5 @@ The homepage loaded correctly, confirming that:
 - Database connection was properly established  
 - Environment variables were functioning as expected  
 
-![AppStart](Submit_Screenshots/task2/(5).png)
+![AppStart](Submit_Screenshots/task2/ (5).png)
 
