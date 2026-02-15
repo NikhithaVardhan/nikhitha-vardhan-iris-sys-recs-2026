@@ -1,4 +1,4 @@
-## Task 9 – CI Pipeline for Automated Docker Build & Push
+## Bonus Task – CI Pipeline for Automated Docker Build & Push
 
 ### Objective
 
