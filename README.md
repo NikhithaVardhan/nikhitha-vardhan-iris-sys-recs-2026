@@ -16,7 +16,7 @@ Now the architecture became:
 Client → Nginx → Multiple Rails Containers → MySQL
 
 All Rails containers shared the same database container, ensuring consistent data storage.
-
+![Scaling](Submit_Screenshots/task4/t%20(2).png)
 
 ### Updating Nginx Configuration for Load Balancing
 
@@ -31,6 +31,8 @@ proxy_pass http://rails_backend;
 This allowed Nginx to forward requests to backend containers instead of a single fixed instance.
 
 By default, Nginx uses round-robin load balancing to distribute traffic.
+![Scaling](Submit_Screenshots/task4/t%20(3).png)
+![Scaling](Submit_Screenshots/task4/t%20(5).png)
 
 
 ### Issue Encountered – Session Instability
@@ -50,6 +52,7 @@ This revealed an important systems concept:
 
 Load balancing across stateful application servers can break session continuity if sessions are stored locally per instance.
 
+![Scaling](Submit_Screenshots/task4/t%20(1).png)
 
 ### Solution – Enabling Session Affinity using ip_hash
 
@@ -73,6 +76,8 @@ After enabling ip_hash:
 - No repeated authentication prompts occurred.
 - CRUD operations worked reliably.
 - Application stability improved under load balancing.
+
+ ![Scaling](Submit_Screenshots/task4/t%20(7).png)
 
 
 ### Key Learning from Task 4
